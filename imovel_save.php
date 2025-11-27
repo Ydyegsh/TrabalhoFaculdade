@@ -1,5 +1,5 @@
 <?php
-include 'config2.php';
+ require 'auth.php';
 
 $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
 $titulo = trim($_POST['titulo'] ?? '');

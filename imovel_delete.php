@@ -1,5 +1,5 @@
 <?php
-include 'config2.php';
+ require 'auth.php';
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 if (!$id) { header('Location: index.php'); exit; }

@@ -1,5 +1,5 @@
 <?php
-include 'config2.php';
+ require 'auth.php';
 require 'header.php';
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
