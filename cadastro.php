@@ -1,5 +1,4 @@
 <?php
-// cadastro.php
 include 'config2.php'; 
 require 'header.php';
 
@@ -19,16 +18,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $erro = 'A senha deve ter pelo menos 6 caracteres.';
     } else {
         try {
-            // 1. Verificar se o email já existe
             $stmt = $pdo->prepare("SELECT COUNT(*) FROM usuarios WHERE email = :email");
             $stmt->execute([':email' => $email]);
             if ($stmt->fetchColumn() > 0) {
                 $erro = 'Este email já está cadastrado.';
             } else {
-                // 2. Criptografar a senha (ESSENCIAL PARA SEGURANÇA!)
                 $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
-
-                // 3. Inserir o novo usuário no banco de dados
                 $stmt = $pdo->prepare("INSERT INTO usuarios (email, senha) VALUES (:email, :senha)");
                 $stmt->execute([
                     ':email' => $email,
@@ -36,10 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ]);
 
                 $sucesso = 'Usuário cadastrado com sucesso! Você pode fazer login agora.';
-                
-                // Opcional: Redirecionar para o login após o sucesso
-                // header('Location: login.php');
-                // exit;
             }
 
         } catch (Exception $e) {
